@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
-python manage.py migrate
-python manage.py makesuperuser
+uv run python manage.py migrate
+uv run python manage.py makesuperuser
