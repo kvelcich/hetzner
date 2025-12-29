@@ -19,3 +19,4 @@ wheels/
 staticfiles/
 mediafiles/
 db.sqlite3
+**/generated.*

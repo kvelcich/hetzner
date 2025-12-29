@@ -1,15 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Hetzner App{% endblock %}</title>
+    <title>{% block title %}Mimiclay{% endblock %}</title>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- HTMX -->
-    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="{% static 'css/generated.tailwind.css' %}">
+    <script src="{% static 'js/htmx.min.js' %}"></script>
 
     {% block extra_head %}{% endblock %}
 </head>

@@ -1,16 +1,13 @@
 services:
-  # PostgreSQL Database
   db:
-    image: postgres:18.1-alpine  # Latest PostgreSQL, Alpine for smaller size
+    image: postgres:18.1-alpine
     environment:
       POSTGRES_DB: django_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
-      # Persist database data
       - postgres_data:/var/lib/postgresql/data
     ports:
-      # Expose to host for debugging (optional)
       - "5432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
@@ -18,17 +15,14 @@ services:
       timeout: 5s
       retries: 5
 
-  # Django Web Application
   web:
     build: .
     command: bash -c "bash /app/release.sh && uv run python manage.py runserver 0.0.0.0:8000"
     volumes:
-      # Mount code for development (see changes without rebuild)
       - .:/app
     ports:
       - "127.0.0.1:8000:8000"
     environment:
-      # Database connection
       DATABASE_URL: postgresql://postgres:postgres@db:5432/django_db
       # Django settings
       DEBUG: "True"
@@ -36,6 +30,14 @@ services:
       db:
         condition: service_healthy
     restart: unless-stopped
+
+  tailwind:
+    build: .
+    command: uv run tailwindcss -i static/css/.tailwind.css -o static/css/generated.tailwind.css --watch
+    volumes:
+      - .:/app
+    restart: unless-stopped
+    tty: true
 
 volumes:
   postgres_data:

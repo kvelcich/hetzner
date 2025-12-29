@@ -62,7 +62,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -89,9 +89,8 @@ LOGGING = {
 # Uses the DATABASE_URL environment variable
 DATABASES = {
     "default": dj_database_url.config(
-        default="postgresql://postgres:postgres@db:5432/django_db",
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
         conn_max_age=600,
-        conn_health_checks=True,
     )
 }
 
@@ -131,6 +130,7 @@ USE_TZ = True
 
 STATIC_URL = environ.get("STATIC_URL", default="/static/")
 STATIC_ROOT = environ.get("STATIC_ROOT", default=BASE_DIR / "staticfiles")
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 MEDIA_URL = environ.get("MEDIA_URL", default="/media/")
 MEDIA_ROOT = environ.get("MEDIA_ROOT", default=BASE_DIR / "media")

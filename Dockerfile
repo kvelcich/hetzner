@@ -6,28 +6,20 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 # Install UV: https://docs.astral.sh/uv/guides/integration/docker/
 COPY --from=ghcr.io/astral-sh/uv:0.9.18 /uv /uvx /bin/
-
-# Copy the project into the image
-COPY . /app
-
-# Disable development dependencies
 ENV UV_NO_DEV=1
+ENV GUNICORN_WORKERS=2
 
-# Sync the project into a new environment, asserting the lockfile is up to date
+COPY . /app
 WORKDIR /app
 RUN uv sync --locked
 
-# Collect static files during build (creates manifest)
-# This ensures staticfiles exist when the app starts
-# Set a dummy SECRET_KEY for the build (will be overridden at runtime)
+ENV TAILWINDCSS_VERSION=v4.1.18
+RUN uv run tailwindcss_install
+RUN uv run tailwindcss -i static/css/.tailwind.css -o static/css/generated.tailwind.css --minify
+
 RUN SECRET_KEY=build-time-secret uv run python manage.py collectstatic --noinput
 
-# Expose port 8000
 EXPOSE 8000
 
-# Default number of workers (can be overridden with -e GUNICORN_WORKERS=N)
-# ENV GUNICORN_WORKERS=2
-
-# Use exec form (JSON array) for proper signal handling
 RUN chmod +x /app/run.sh
 CMD ["/app/run.sh"]
