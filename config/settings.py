@@ -10,33 +10,27 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
-from os import path
+from os import environ, path
 from pathlib import Path
 
-from environ import Env
-
-
-env = Env(DEBUG=(bool, False))
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-# Take environment variables from .env file
-Env.read_env(path.join(BASE_DIR, ".env"))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env(
+SECRET_KEY = environ.get(
     "SECRET_KEY",
     default="django-insecure-l23seie)75sf)3sozq%%-xt)7tgzi39*0@t1ky&6(=df1*+#d8",
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env("DEBUG", default=True)
+DEBUG = environ.get("DEBUG", default=True)
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
+ALLOWED_HOSTS = environ.get("ALLOWED_HOSTS", default="*" if DEBUG else "").split(",")
 
 
 # Application definition
@@ -91,10 +85,14 @@ LOGGING = {
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# Uses the DATABASE_URL environment variable
 DATABASES = {
-    "default": env.db(default="sqlite:///db.sqlite3"),
+    "default": dj_database_url.config(
+        default="postgresql://postgres:postgres@db:5432/hetzner",
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -130,11 +128,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = env.str("STATIC_URL", default="/static/")
-STATIC_ROOT = env.str("STATIC_ROOT", default=BASE_DIR / "staticfiles")
+STATIC_URL = environ.get("STATIC_URL", default="/static/")
+STATIC_ROOT = environ.get("STATIC_ROOT", default=BASE_DIR / "staticfiles")
 
-MEDIA_ROOT = env("MEDIA_ROOT", default=BASE_DIR / "media")
-MEDIA_URL = env("MEDIA_PATH", default="/media/")
+MEDIA_ROOT = environ.get("MEDIA_ROOT", default=BASE_DIR / "media")
+MEDIA_URL = environ.get("MEDIA_PATH", default="/media/")
 
 
 # Security
