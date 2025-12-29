@@ -1,3 +1,3 @@
 #!/bin/bash
 set -e
-gunicorn project.wsgi --log-file -
+gunicorn config.wsgi --log-file -
