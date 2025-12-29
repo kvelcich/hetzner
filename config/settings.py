@@ -28,7 +28,7 @@ SECRET_KEY = environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = environ.get("DEBUG", default=True)
+DEBUG = environ.get("DEBUG", default=True).lower() in ("true", "1", "t")
 
 ALLOWED_HOSTS = environ.get("ALLOWED_HOSTS", default="*" if DEBUG else "").split(",")
 
@@ -136,6 +136,7 @@ MEDIA_ROOT = environ.get("MEDIA_ROOT", default=BASE_DIR / "media")
 MEDIA_URL = environ.get("MEDIA_PATH", default="/media/")
 
 # WhiteNoise configuration for efficient static file serving
+# Even when nginx serves static files, Django needs this to generate hashed URLs
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
@@ -146,8 +147,12 @@ STORAGES = {
 }
 
 # Cache static files for 1 year (immutable files with hashed names)
-# This dramatically improves performance on subsequent loads
+# Note: When nginx serves static files, configure nginx cache headers separately
 WHITENOISE_MAX_AGE = 31536000  # 1 year in seconds
+
+# Force manifest to be used even in production
+# This ensures {% static %} tags output hashed URLs like /static/app.abc123.js
+WHITENOISE_MANIFEST_STRICT = False  # Don't fail if a file isn't in manifest
 
 
 # Security
