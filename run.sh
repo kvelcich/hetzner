@@ -1,3 +1,3 @@
 #!/bin/bash
 set -e
-gunicorn config.wsgi --log-file -
+gunicorn config.wsgi --bind 0.0.0.0:8000 --log-file -
