@@ -135,6 +135,20 @@ STATIC_ROOT = environ.get("STATIC_ROOT", default=BASE_DIR / "staticfiles")
 MEDIA_ROOT = environ.get("MEDIA_ROOT", default=BASE_DIR / "media")
 MEDIA_URL = environ.get("MEDIA_PATH", default="/media/")
 
+# WhiteNoise configuration for efficient static file serving
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+# Cache static files for 1 year (immutable files with hashed names)
+# This dramatically improves performance on subsequent loads
+WHITENOISE_MAX_AGE = 31536000  # 1 year in seconds
+
 
 # Security
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
