@@ -1,0 +1,37 @@
+{% extends "main/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-16">
+    <div class="max-w-2xl mx-auto text-center">
+        <h1 class="text-4xl font-bold text-gray-900 mb-8">
+            Welcome to Mimiclay
+        </h1>
+
+        <!-- Mimiclay Image -->
+        <div class="mb-8 flex justify-center">
+            <img src="{% static 'main/img/mimiclay.png' %}" alt="Mimiclay" class="h-48 w-auto rounded-lg shadow-lg">
+        </div>
+
+        <p class="text-lg text-gray-600 mb-8">
+            Application is up and running with HTMX and Tailwind CSS!
+        </p>
+
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Quick Demo</h2>
+
+            <button
+                class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition-colors"
+                hx-get="/demo"
+                hx-target="#demo-content"
+                hx-swap="innerHTML">
+                Click to test HTMX
+            </button>
+
+            <div id="demo-content" class="mt-4 text-gray-700">
+                <!-- HTMX content will appear here -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

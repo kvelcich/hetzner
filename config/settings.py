@@ -89,7 +89,7 @@ LOGGING = {
 # Uses the DATABASE_URL environment variable
 DATABASES = {
     "default": dj_database_url.config(
-        default="postgresql://postgres:postgres@db:5432/hetzner",
+        default="postgresql://postgres:postgres@db:5432/django_db",
         conn_max_age=600,
         conn_health_checks=True,
     )

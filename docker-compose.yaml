@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:18.1-alpine  # Latest PostgreSQL, Alpine for smaller size
     environment:
-      POSTGRES_DB: hetzner
+      POSTGRES_DB: django_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
@@ -29,7 +29,7 @@ services:
       - "127.0.0.1:8000:8000"
     environment:
       # Database connection
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/hetzner
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/django_db
       # Django settings
       DEBUG: "True"
     depends_on:
