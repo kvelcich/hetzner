@@ -83,12 +83,6 @@ LOGGING = {
     "loggers": {"": {"handlers": ["console"], "level": "DEBUG"}},
 }
 
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
-
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
