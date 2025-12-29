@@ -150,9 +150,10 @@ STORAGES = {
 # Note: When nginx serves static files, configure nginx cache headers separately
 WHITENOISE_MAX_AGE = 31536000  # 1 year in seconds
 
-# Force manifest to be used even in production
-# This ensures {% static %} tags output hashed URLs like /static/app.abc123.js
-WHITENOISE_MANIFEST_STRICT = False  # Don't fail if a file isn't in manifest
+# Allow missing files in manifest (useful during development and deployment)
+# Set to False to prevent errors if a static file isn't in the manifest yet
+WHITENOISE_MANIFEST_STRICT = False
+WHITENOISE_ALLOW_ALL_ORIGINS = True
 
 
 # Security

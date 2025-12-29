@@ -17,6 +17,10 @@ ENV UV_NO_DEV=1
 WORKDIR /app
 RUN uv sync --locked
 
+# Collect static files during build (creates manifest)
+# This ensures staticfiles exist when the app starts
+RUN uv run python manage.py collectstatic --noinput
+
 # Expose port 8000
 EXPOSE 8000
 
