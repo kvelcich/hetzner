@@ -132,8 +132,8 @@ USE_TZ = True
 STATIC_URL = environ.get("STATIC_URL", default="/static/")
 STATIC_ROOT = environ.get("STATIC_ROOT", default=BASE_DIR / "staticfiles")
 
+MEDIA_URL = environ.get("MEDIA_URL", default="/media/")
 MEDIA_ROOT = environ.get("MEDIA_ROOT", default=BASE_DIR / "media")
-MEDIA_URL = environ.get("MEDIA_PATH", default="/media/")
 
 # WhiteNoise configuration for efficient static file serving
 # Even when nginx serves static files, Django needs this to generate hashed URLs

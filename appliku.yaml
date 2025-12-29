@@ -1,0 +1,39 @@
+"build_settings":
+  "build_image": "dockerfile"
+  "environment_variables":
+    - "name": "SECRET_KEY"
+      "value": "change_me"
+    - "name": "ALLOWED_HOSTS"
+      "value": "*"
+    - "name": "GUNICORN_WORKERS"
+      "value": "5"
+    - "name": "DATABASE_URL"
+      "from_database":
+        "name": "postgres"
+        "property": "private_connection_url"
+    - "name": "DEBUG"
+      "value": "True"
+    - "name": "STATIC_URL"
+      "value": "/static/"
+    - "name": "STATIC_ROOT"
+      "value": "/staticfiles/"
+    - "name": "MEDIA_URL"
+      "value": "/media/"
+    - "name": "MEDIA_ROOT"
+      "value": "/media/"
+  "dockerfile_path": "Dockerfile"
+  "dockerfile_context_path": ""
+"services":
+  "release":
+    "command": "bash release.sh"
+  "web":
+    "scale": 1
+    "command": "bash run.sh"
+"databases":
+  "postgres":
+    "type": "postgresql_16"
+"volumes":
+  "volume":
+    "target": "/uploads/"
+    "url": "/media/"
+    "environment_variable": "MEDIA"
