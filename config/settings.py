@@ -146,15 +146,6 @@ STORAGES = {
     },
 }
 
-# Cache static files for 1 year (immutable files with hashed names)
-# Note: When nginx serves static files, configure nginx cache headers separately
-WHITENOISE_MAX_AGE = 31536000  # 1 year in seconds
-
-# Allow missing files in manifest (useful during development and deployment)
-# Set to False to prevent errors if a static file isn't in the manifest yet
-WHITENOISE_MANIFEST_STRICT = False
-WHITENOISE_ALLOW_ALL_ORIGINS = True
-
 
 # Security
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
