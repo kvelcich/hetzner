@@ -19,7 +19,8 @@ RUN uv sync --locked
 
 # Collect static files during build (creates manifest)
 # This ensures staticfiles exist when the app starts
-RUN uv run python manage.py collectstatic --noinput
+# Set a dummy SECRET_KEY for the build (will be overridden at runtime)
+RUN SECRET_KEY=build-time-secret uv run python manage.py collectstatic --noinput
 
 # Expose port 8000
 EXPOSE 8000

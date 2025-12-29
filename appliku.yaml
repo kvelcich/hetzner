@@ -20,11 +20,11 @@
     - "name": "STATIC_URL"
       "value": "/static/"
     - "name": "STATIC_ROOT"
-      "value": "/staticfiles/"
+      "value": "/app/staticfiles/"
     - "name": "MEDIA_URL"
       "value": "/media/"
     - "name": "MEDIA_ROOT"
-      "value": "/media/"
+      "value": "/app/media/"
   "dockerfile_path": "Dockerfile"
   "dockerfile_context_path": ""
 "services":

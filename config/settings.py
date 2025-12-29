@@ -146,6 +146,13 @@ STORAGES = {
     },
 }
 
+# Cache static files for 1 year (immutable files with hashed names)
+# Since hashed filenames change when content changes, aggressive caching is safe
+WHITENOISE_MAX_AGE = 31536000  # 1 year in seconds
+
+# Don't fail if a static file isn't in the manifest (useful during development)
+WHITENOISE_MANIFEST_STRICT = False
+
 
 # Security
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
