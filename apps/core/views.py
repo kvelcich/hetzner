@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 
 def main_page(request):
-    return render(request, "main/index.html")
+    return render(request, "core/index.html")
 
 
 def demo_view(request):
