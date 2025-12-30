@@ -21,5 +21,5 @@ RUN SECRET_KEY=build-time-secret uv run python manage.py collectstatic --noinput
 
 EXPOSE 8000
 
-RUN chmod +x /app/run.sh
-CMD ["/app/run.sh"]
+RUN chmod +x /app/bin/run.sh
+CMD ["/app/bin/run.sh"]

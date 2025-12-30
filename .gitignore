@@ -7,13 +7,17 @@ wheels/
 *.egg-info
 
 # Virtual environments
-.venv
-
-# Environment variables (secrets)
+.env/
+.venv/
 .env
 .env.local
 .env.production
 .env.prod
+.venv
+
+# Version control
+.git/
+.jj/
 
 # Django
 staticfiles/

@@ -1,3 +1,5 @@
+Dockerfile
+
 # Python-generated files
 __pycache__/
 *.py[oc]
@@ -6,4 +8,21 @@ dist/
 wheels/
 *.egg-info
 
-Dockerfile
+# Virtual environments
+.env/
+.venv/
+.env
+.env.local
+.env.production
+.env.prod
+.venv
+
+# Version control
+.git/
+.jj/
+
+# Django
+staticfiles/
+mediafiles/
+db.sqlite3
+**/generated.*

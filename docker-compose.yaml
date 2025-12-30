@@ -17,7 +17,7 @@ services:
 
   web:
     build: .
-    command: bash -c "bash /app/release.sh && uv run python manage.py runserver 0.0.0.0:8000"
+    command: bash -c "bash /app/bin/release.sh && uv run python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
     ports:
