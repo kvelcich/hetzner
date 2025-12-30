@@ -29,10 +29,10 @@
   "dockerfile_context_path": ""
 "services":
   "release":
-    "command": "bash release.sh"
+    "command": "bash bin/release.sh"
   "web":
     "scale": 1
-    "command": "bash run.sh"
+    "command": "bash bin/run.sh"
 "databases":
   "postgres":
     "type": "postgresql_16"
